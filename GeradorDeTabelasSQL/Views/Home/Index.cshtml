@@ -1,0 +1,28 @@
+﻿@model List<TabelaModel>
+
+@{
+    ViewData["Title"] = "Gerador";
+}
+
+<div class="text-center">
+    <form asp-controller="Home" asp-action="GerarTabela" method="post">
+        @for(int i = 0; i < Model.Count; i++)
+        {
+            <label>
+                <input type="checkbox" name="camposSelecionados" value="@Model[i].Nome" class="campo-checkbox" />@Model[i].Nome
+            </label>
+        }
+
+        <button type="submit">Gerar</button>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.campo-checkbox').change(function () {
+                    var checkbox = $(this);
+                    checkbox.val(checkbox.prop('checked') ? checkbox.attr('value') : '');
+                });
+            });
+        </script>
+    </form>
+</div>
