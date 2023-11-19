@@ -2,9 +2,11 @@
 {
     public class TabelaModel
     {
+        //Atributos
         public List<string> Nome { get; set; } = new List<string>();
-        public List<string> camposSelecionados { get; set; } = new List<string>();
+        public List<string> CamposSelecionados { get; set; } = new List<string>();
         public int? NumeroDePessoas { get; set; } = null;
+        public int Id { get; set; }
         public string? NomeUser { get; set; }
         public string? Idade { get; set; }
         public string? Sexo { get; set; }
@@ -12,8 +14,9 @@
         public string? Estado { get; set; }
         public string? Rg { get; set; }
         public string? Cpf { get; set; }
-        public int numeroPessoas { get; set; }
+        public int NumeroPessoas { get; set; }
 
+        //Construtor responsável por inicializar os nomes do cabeçalho da tabela
         public TabelaModel()
         {
             Nome.Add("Nome");
@@ -118,6 +121,7 @@
             return estadosAleatorios;
         }
 
+        //Gera RG
         public string[] GerarVetorRg()
         {
             string[] rgs = new string[100];
@@ -131,15 +135,17 @@
             return rgs;
         }
 
+        //Formata o RG
         public string GerarRGFicticio(Random random)
         {
             int primeiroBloco = random.Next(10, 100);
-            int segundoBloco = random.Next(100_000, 1_000_000);
-            int terceiroBloco = random.Next(10, 100);
+            int segundoBloco = random.Next(100, 999);
+            int terceiroBloco = random.Next(100, 999);
 
             return $"{primeiroBloco:D2}.{segundoBloco:D3}.{terceiroBloco:D3}-X";
         }
 
+        //Gera CPF
         public string[] GerarVetorCpf()
         {
             string[] cpfs = new string[100];
@@ -153,15 +159,15 @@
             return cpfs;
         }
 
+        //Formata o CPF
         public string GerarCPFFicticio(Random random)
         {
             int primeiroBloco = random.Next(100, 999);
             int segundoBloco = random.Next(100, 999);
             int terceiroBloco = random.Next(100, 999);
-            int digitoVerificador1 = random.Next(0, 9);
-            int digitoVerificador2 = random.Next(0, 9);
+            int digitoVerificador1 = random.Next(0, 99);
 
-            return $"{primeiroBloco:D3}.{segundoBloco:D3}.{terceiroBloco:D3}-{digitoVerificador1:D2}{digitoVerificador2:D2}";
+            return $"{primeiroBloco:D3}.{segundoBloco:D3}.{terceiroBloco:D3}-{digitoVerificador1:D2}";
         }
     }
 }

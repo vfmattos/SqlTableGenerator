@@ -28,32 +28,38 @@ namespace GeradorDeTabelasSQL.Controllers
 
         public IActionResult GerarTabela(TabelaModel estrutura)
         {
-            bool nome = estrutura.camposSelecionados.Contains("Nome");
-            bool idade = estrutura.camposSelecionados.Contains("Idade");
-            bool sexo = estrutura.camposSelecionados.Contains("Sexo");
-            bool cidade = estrutura.camposSelecionados.Contains("Cidade");
-            bool estado = estrutura.camposSelecionados.Contains("Estado");
-            bool rg = estrutura.camposSelecionados.Contains("Rg");
-            bool cpf = estrutura.camposSelecionados.Contains("Cpf");
+            //Verificando quais elementos foram selecionados nos checkbox
+            bool nome = estrutura.CamposSelecionados.Contains("Nome");
+            bool idade = estrutura.CamposSelecionados.Contains("Idade");
+            bool sexo = estrutura.CamposSelecionados.Contains("Sexo");
+            bool cidade = estrutura.CamposSelecionados.Contains("Cidade");
+            bool estado = estrutura.CamposSelecionados.Contains("Estado");
+            bool rg = estrutura.CamposSelecionados.Contains("Rg");
+            bool cpf = estrutura.CamposSelecionados.Contains("Cpf");
 
+            //Lista a ser "povoada" por elementos do tipo TabelaModel
             var tabela = new List<TabelaModel>();
 
+            //Intanciando um objeto tipo Random. O Método Random.Next() será usado para gerar um indíce randômico nos métodos de TabelaModel
             Random random = new Random();
 
+            //Primeiro elemento na lista. Usado para retornar o cabeçalho da tabela.
             tabela.Add(new TabelaModel());
             
-            for(int i = 0; i < estrutura.camposSelecionados.Count; i++)
+            //Criação do cabeçalho da tabela de acordo com os elementos selecionados.
+            for(int i = 0; i < estrutura.CamposSelecionados.Count; i++)
             {
-                tabela[0].camposSelecionados.Add(estrutura.camposSelecionados[i]);
+                tabela[0].CamposSelecionados.Add(estrutura.CamposSelecionados[i]);
             }
             
+            //Inserção de dados randômicos na tabela
             for (int i = 0; i < estrutura.NumeroDePessoas; i++)
             {
 
                 var tabelaAux = new TabelaModel();
 
 
-
+                tabelaAux.Id = i+1;
                 if (nome) { tabelaAux.NomeUser = tabelaAux.GerarVetorNomes()[random.Next(0, tabelaAux.GerarVetorNomes().Length)]; }
                 if (idade) { tabelaAux.Idade = tabelaAux.GerarVetorIdade()[random.Next(0, tabelaAux.GerarVetorIdade().Length)]; }
                 if(sexo) { tabelaAux.Sexo = tabelaAux.GerarVetorSexo()[random.Next(0, tabelaAux.GerarVetorSexo().Length)]; }

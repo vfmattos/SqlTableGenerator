@@ -10,18 +10,30 @@
         <thead>
             <tr>
 
-                @for (int i = 0; i < Model[0].camposSelecionados.Count; i++)
+                <th scope="col">Id</th>
+
+                <!--Primeiro elemento da lista sendo usado para exibir uma única ocorrência do cabeçalho da tabela-->
+                
+
+                @for (int i = 0; i < Model[0].CamposSelecionados.Count; i++)
                 {
 
-                    <th scope="col">@Model[0].camposSelecionados[i]</th>
+                    <th scope="col">@Model[0].CamposSelecionados[i]</th>
                 }
 
             </tr>
         </thead>
         <tbody>
+            <!--Verifica os atributos diferentes de null para serem exibidos na tabela-->
             @foreach (var p in Model)
             {
                 <tr>
+                    
+                    @if(p.Id != 0)
+                    {
+                        <td>@p.Id</td>
+                    }
+
                     @if (p.NomeUser != null)
                     {
                         <td>@p.NomeUser</td>
