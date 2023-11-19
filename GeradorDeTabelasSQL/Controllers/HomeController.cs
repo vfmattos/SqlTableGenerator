@@ -26,7 +26,7 @@ namespace GeradorDeTabelasSQL.Controllers
 
         [HttpPost]
 
-        public IActionResult GerarTabela(EstruturaModel estrutura)
+        public IActionResult GerarTabela(TabelaModel estrutura)
         {
             bool nome = estrutura.camposSelecionados.Contains("Nome");
             bool idade = estrutura.camposSelecionados.Contains("Idade");
@@ -37,6 +37,8 @@ namespace GeradorDeTabelasSQL.Controllers
             bool cpf = estrutura.camposSelecionados.Contains("Cpf");
 
             var tabela = new List<TabelaModel>();
+
+            Random random = new Random();
 
             tabela.Add(new TabelaModel());
             
@@ -50,19 +52,20 @@ namespace GeradorDeTabelasSQL.Controllers
 
                 var tabelaAux = new TabelaModel();
 
-                if (nome) { tabelaAux.NomeUser = tabelaAux.GerarVetorNomes()[i]; }
-                if (idade) { tabelaAux.Idade = tabelaAux.GerarVetorIdade()[i]; }
-                if(sexo) { tabelaAux.Sexo = tabelaAux.GerarVetorSexo()[i]; }
-                if(cidade) { tabelaAux.Cidade = tabelaAux.GerarVetorCidade()[i]; }
-                if(estado) { tabelaAux.Estado = tabelaAux.GerarVetorEstado()[i]; }
-                if(rg) { tabelaAux.Rg = tabelaAux.GerarVetorRg()[i]; }
-                if (cpf) { tabelaAux.Cpf = tabelaAux.GerarVetorCpf()[i]; }
+
+
+                if (nome) { tabelaAux.NomeUser = tabelaAux.GerarVetorNomes()[random.Next(0, tabelaAux.GerarVetorNomes().Length)]; }
+                if (idade) { tabelaAux.Idade = tabelaAux.GerarVetorIdade()[random.Next(0, tabelaAux.GerarVetorIdade().Length)]; }
+                if(sexo) { tabelaAux.Sexo = tabelaAux.GerarVetorSexo()[random.Next(0, tabelaAux.GerarVetorSexo().Length)]; }
+                if(cidade) { tabelaAux.Cidade = tabelaAux.GerarVetorCidade()[random.Next(0, tabelaAux.GerarVetorCidade().Length)]; }
+                if(estado) { tabelaAux.Estado = tabelaAux.GerarVetorEstado()[random.Next(0, tabelaAux.GerarVetorEstado().Length)]; }
+                if(rg) { tabelaAux.Rg = tabelaAux.GerarVetorRg()[random.Next(0, tabelaAux.GerarVetorRg().Length)]; }
+                if (cpf) { tabelaAux.Cpf = tabelaAux.GerarVetorCpf()[random.Next(0, tabelaAux.GerarVetorCpf().Length)]; }
 
                 tabela.Add(tabelaAux);
                 
 
             }
-
             return View(tabela);
 
         }

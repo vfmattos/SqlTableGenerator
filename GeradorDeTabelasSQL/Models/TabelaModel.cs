@@ -4,6 +4,7 @@
     {
         public List<string> Nome { get; set; } = new List<string>();
         public List<string> camposSelecionados { get; set; } = new List<string>();
+        public int? NumeroDePessoas { get; set; } = null;
         public string? NomeUser { get; set; }
         public string? Idade { get; set; }
         public string? Sexo { get; set; }
@@ -11,6 +12,7 @@
         public string? Estado { get; set; }
         public string? Rg { get; set; }
         public string? Cpf { get; set; }
+        public int numeroPessoas { get; set; }
 
         public TabelaModel()
         {
