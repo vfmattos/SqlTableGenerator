@@ -1,4 +1,5 @@
 ﻿using GeradorDeTabelasSQL.Models;
+using GeradorDeTabelasSQL.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -44,7 +45,7 @@ namespace GeradorDeTabelasSQL.Controllers
             Random random = new Random();
 
             //Primeiro elemento na lista. Usado para retornar o cabeçalho da tabela.
-            tabela.Add(new TabelaModel());
+            tabela.Add(new TabelaModel() { QueryCreate = new Metodos().QueryCreateTable(estrutura)});
             
             //Criação do cabeçalho da tabela de acordo com os elementos selecionados.
             for(int i = 0; i < estrutura.CamposSelecionados.Count; i++)
@@ -56,10 +57,10 @@ namespace GeradorDeTabelasSQL.Controllers
             for (int i = 0; i < estrutura.NumeroDePessoas; i++)
             {
 
-                var tabelaAux = new TabelaModel();
-
-
-                tabelaAux.Id = i+1;
+                var tabelaAux = new TabelaModel
+                {
+                    Id = i + 1
+                };
                 if (nome) { tabelaAux.NomeUser = tabelaAux.GerarVetorNomes()[random.Next(0, tabelaAux.GerarVetorNomes().Length)]; }
                 if (idade) { tabelaAux.Idade = tabelaAux.GerarVetorIdade()[random.Next(0, tabelaAux.GerarVetorIdade().Length)]; }
                 if(sexo) { tabelaAux.Sexo = tabelaAux.GerarVetorSexo()[random.Next(0, tabelaAux.GerarVetorSexo().Length)]; }
@@ -68,15 +69,15 @@ namespace GeradorDeTabelasSQL.Controllers
                 if(rg) { tabelaAux.Rg = tabelaAux.GerarVetorRg()[random.Next(0, tabelaAux.GerarVetorRg().Length)]; }
                 if (cpf) { tabelaAux.Cpf = tabelaAux.GerarVetorCpf()[random.Next(0, tabelaAux.GerarVetorCpf().Length)]; }
 
-                tabela.Add(tabelaAux);
-                
 
+
+                tabela.Add(tabelaAux);
             }
             return View(tabela);
 
         }
 
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

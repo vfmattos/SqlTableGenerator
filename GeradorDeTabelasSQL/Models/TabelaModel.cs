@@ -14,6 +14,7 @@
         public string? Estado { get; set; }
         public string? Rg { get; set; }
         public string? Cpf { get; set; }
+        public string? QueryCreate { get; set; }
         public int NumeroPessoas { get; set; }
 
         //Construtor responsável por inicializar os nomes do cabeçalho da tabela

@@ -6,6 +6,9 @@
 
 <div class="text-center">
 
+
+    <span>@Model[0].QueryCreate</span>
+
     <table class="table">
         <thead>
             <tr>
@@ -13,8 +16,6 @@
                 <th scope="col">Id</th>
 
                 <!--Primeiro elemento da lista sendo usado para exibir uma única ocorrência do cabeçalho da tabela-->
-                
-
                 @for (int i = 0; i < Model[0].CamposSelecionados.Count; i++)
                 {
 
@@ -28,8 +29,8 @@
             @foreach (var p in Model)
             {
                 <tr>
-                    
-                    @if(p.Id != 0)
+
+                    @if (p.Id != 0)
                     {
                         <td>@p.Id</td>
                     }
@@ -74,6 +75,9 @@
             }
         </tbody>
     </table>
+
+
+
 
 </div>
 
