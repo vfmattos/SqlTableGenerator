@@ -16,11 +16,11 @@ namespace GeradorDeTabelasSQL.Repositorio
             if (tabela.CamposSelecionados.Contains("Idade")) { map.Add("Idade", "INT NOT NULL"); }
             if (tabela.CamposSelecionados.Contains("Sexo")) { map.Add("Sexo", "VARCHAR(20) NOT NULL"); }
             if (tabela.CamposSelecionados.Contains("Cidade")) { map.Add("Cidade", "VARCHAR(255) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Estado")) { map.Add("Estado", "VARCHAR( NOT NULL"); }
+            if (tabela.CamposSelecionados.Contains("Estado")) { map.Add("Estado", "VARCHAR(255) NOT NULL"); }
             if (tabela.CamposSelecionados.Contains("Rg")) { map.Add("Rg", "VARCHAR(255) NOT NULL"); }
             if (tabela.CamposSelecionados.Contains("Cpf")) { map.Add("Cpf", "VARCHAR(255) NOT NULL"); }
 
-            sb.Append("CREATE TABLE Persons (Id INT PRIMARY KEY ");
+            sb.Append("CREATE TABLE Persons (Id INT PRIMARY KEY, ");
 
             foreach (KeyValuePair<string, string> kvp in map)
             {
