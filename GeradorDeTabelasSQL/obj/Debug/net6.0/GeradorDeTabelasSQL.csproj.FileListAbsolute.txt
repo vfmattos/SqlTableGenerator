@@ -29,3 +29,12 @@ C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\obj\Debug\ne
 C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\obj\Debug\net6.0\GeradorDeTabelasSQL.pdb
 C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\obj\Debug\net6.0\GeradorDeTabelasSQL.genruntimeconfig.cache
 C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\obj\Debug\net6.0\ref\GeradorDeTabelasSQL.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\vitor\source\repos\GeradorDeTabelasSQL\GeradorDeTabelasSQL\obj\Debug\net6.0\GeradorDeTabelasSQL.csproj.CopyComplete

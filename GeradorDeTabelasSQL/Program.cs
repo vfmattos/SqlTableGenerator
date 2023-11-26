@@ -1,3 +1,7 @@
+using GeradorDeTabelasSQL.Data;
+using GeradorDeTabelasSQL.Repositorio;
+using Microsoft.EntityFrameworkCore;
+
 namespace GeradorDeTabelasSQL
 {
     public class Program
@@ -5,9 +9,14 @@ namespace GeradorDeTabelasSQL
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<TableContext>(opt => opt.UseInMemoryDatabase("TableList"));
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<ITabelaRepositorio, TabelaRepositorio>();
+
 
             var app = builder.Build();
 

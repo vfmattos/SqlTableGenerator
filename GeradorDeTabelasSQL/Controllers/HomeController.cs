@@ -8,10 +8,12 @@ namespace GeradorDeTabelasSQL.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ITabelaRepositorio _tabelaRepositorio;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ITabelaRepositorio tabelaRepositorio)
         {
             _logger = logger;
+            _tabelaRepositorio = tabelaRepositorio;
         }
 
         public IActionResult Index()
@@ -23,6 +25,12 @@ namespace GeradorDeTabelasSQL.Controllers
             return View(tabela);
         }
 
+        public IActionResult GerarQueries() {
+
+           var tabela = _tabelaRepositorio.ListarTabela();
+
+            return View(tabela);
+        }
      
 
         [HttpPost]
@@ -45,7 +53,7 @@ namespace GeradorDeTabelasSQL.Controllers
             Random random = new Random();
 
             //Primeiro elemento na lista. Usado para retornar o cabeçalho da tabela.
-            tabela.Add(new TabelaModel() { QueryCreate = new Metodos().QueryCreateTable(estrutura)});
+            tabela.Add(new TabelaModel() { QueryCreate = _tabelaRepositorio.QueryCreateTable(estrutura)});
             
             //Criação do cabeçalho da tabela de acordo com os elementos selecionados.
             for(int i = 0; i < estrutura.CamposSelecionados.Count; i++)
@@ -57,22 +65,23 @@ namespace GeradorDeTabelasSQL.Controllers
             for (int i = 0; i < estrutura.NumeroDePessoas; i++)
             {
 
-                var tabelaAux = new TabelaModel
-                {
-                    Id = i + 1
-                };
-                if (nome) { tabelaAux.NomeUser = tabelaAux.GerarVetorNomes()[random.Next(0, tabelaAux.GerarVetorNomes().Length)]; }
-                if (idade) { tabelaAux.Idade = tabelaAux.GerarVetorIdade()[random.Next(0, tabelaAux.GerarVetorIdade().Length)]; }
-                if(sexo) { tabelaAux.Sexo = tabelaAux.GerarVetorSexo()[random.Next(0, tabelaAux.GerarVetorSexo().Length)]; }
-                if(cidade) { tabelaAux.Cidade = tabelaAux.GerarVetorCidade()[random.Next(0, tabelaAux.GerarVetorCidade().Length)]; }
-                if(estado) { tabelaAux.Estado = tabelaAux.GerarVetorEstado()[random.Next(0, tabelaAux.GerarVetorEstado().Length)]; }
-                if(rg) { tabelaAux.Rg = tabelaAux.GerarVetorRg()[random.Next(0, tabelaAux.GerarVetorRg().Length)]; }
-                if (cpf) { tabelaAux.Cpf = tabelaAux.GerarVetorCpf()[random.Next(0, tabelaAux.GerarVetorCpf().Length)]; }
+                var tabelaAux = new TabelaModel();
+
+                if (nome) { tabelaAux.NomeUser = _tabelaRepositorio.GerarVetorNomes()[random.Next(0, _tabelaRepositorio.GerarVetorNomes().Length)]; }
+                if (idade) { tabelaAux.Idade = _tabelaRepositorio.GerarVetorIdade()[random.Next(0, _tabelaRepositorio.GerarVetorIdade().Length)]; }
+                if(sexo) { tabelaAux.Sexo = _tabelaRepositorio.GerarVetorSexo()[random.Next(0, _tabelaRepositorio.GerarVetorSexo().Length)]; }
+                if(cidade) { tabelaAux.Cidade = _tabelaRepositorio.GerarVetorCidade()[random.Next(0, _tabelaRepositorio.GerarVetorCidade().Length)]; }
+                if(estado) { tabelaAux.Estado = _tabelaRepositorio.GerarVetorEstado()[random.Next(0, _tabelaRepositorio.GerarVetorEstado().Length)]; }
+                if(rg) { tabelaAux.Rg = _tabelaRepositorio.GerarVetorRg()[random.Next(0, _tabelaRepositorio.GerarVetorRg().Length)]; }
+                if (cpf) { tabelaAux.Cpf = _tabelaRepositorio.GerarVetorCpf()[random.Next(0, _tabelaRepositorio.GerarVetorCpf().Length)]; }
 
 
 
                 tabela.Add(tabelaAux);
             }
+
+            _tabelaRepositorio.AdicionaTabela(tabela);
+
             return View(tabela);
 
         }
