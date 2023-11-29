@@ -53,7 +53,7 @@ namespace GeradorDeTabelasSQL.Controllers
             Random random = new Random();
 
             //Primeiro elemento na lista. Usado para retornar o cabeçalho da tabela.
-            tabela.Add(new TabelaModel() { QueryCreate = _tabelaRepositorio.QueryCreateTable(estrutura)});
+            tabela.Add(new TabelaModel());
             
             //Criação do cabeçalho da tabela de acordo com os elementos selecionados.
             for(int i = 0; i < estrutura.CamposSelecionados.Count; i++)
@@ -79,6 +79,8 @@ namespace GeradorDeTabelasSQL.Controllers
 
                 tabela.Add(tabelaAux);
             }
+
+            tabela[0].QueryCreate = _tabelaRepositorio.QueryCreateTable(tabela);
 
             _tabelaRepositorio.AdicionaTabela(tabela);
 

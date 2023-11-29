@@ -5,7 +5,7 @@ namespace GeradorDeTabelasSQL.Repositorio
     public interface ITabelaRepositorio
     {
 
-        public string QueryCreateTable(TabelaModel tabela);
+        public string QueryCreateTable(List<TabelaModel> tabela);
 
         public void AdicionaTabela(List<TabelaModel> tabela);
         public List<TabelaModel> ListarTabela();

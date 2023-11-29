@@ -24,29 +24,69 @@ namespace GeradorDeTabelasSQL.Repositorio
             return _tableContext.tabelaModels.ToList();
         }
 
-        public string QueryCreateTable(TabelaModel tabela)
+        public string QueryCreateTable(List<TabelaModel> tabela)
         {
             StringBuilder sb = new StringBuilder();
             Dictionary<string, string> map = new Dictionary<string, string>();
 
+            bool nome = tabela[0].CamposSelecionados.Contains("Nome");
+            bool idade = tabela[0].CamposSelecionados.Contains("Idade");
+            bool sexo = tabela[0].CamposSelecionados.Contains("Sexo");
+            bool cidade = tabela[0].CamposSelecionados.Contains("Cidade");
+            bool estado = tabela[0].CamposSelecionados.Contains("Estado");
+            bool rg = tabela[0].CamposSelecionados.Contains("Rg");
+            bool cpf = tabela[0].CamposSelecionados.Contains("Cpf");
 
-            if (tabela.CamposSelecionados.Contains("Nome")) { map.Add("Nome", "VARCHAR(255) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Idade")) { map.Add("Idade", "INT NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Sexo")) { map.Add("Sexo", "VARCHAR(20) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Cidade")) { map.Add("Cidade", "VARCHAR(255) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Estado")) { map.Add("Estado", "VARCHAR(255) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Rg")) { map.Add("Rg", "VARCHAR(255) NOT NULL"); }
-            if (tabela.CamposSelecionados.Contains("Cpf")) { map.Add("Cpf", "VARCHAR(255) NOT NULL"); }
+            if (nome) { map.Add("Nome", "VARCHAR(255) NOT NULL"); }
+            if (idade) { map.Add("Idade", "INT NOT NULL"); }
+            if (sexo) { map.Add("Sexo", "VARCHAR(20) NOT NULL"); }
+            if (cidade) { map.Add("Cidade", "VARCHAR(255) NOT NULL"); }
+            if (estado) { map.Add("Estado", "VARCHAR(255) NOT NULL"); }
+            if (rg) { map.Add("Rg", "VARCHAR(255) NOT NULL"); }
+            if (cpf) { map.Add("Cpf", "VARCHAR(255) NOT NULL"); }
 
             sb.Append("CREATE TABLE Persons (Id INT PRIMARY KEY");
 
             foreach (KeyValuePair<string, string> kvp in map)
             {
                 sb.Append(", " + kvp.Key + " " + kvp.Value);
-                //Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
             }
 
             sb.Append(");");
+
+
+            StringBuilder sbi = new StringBuilder();
+            sbi.AppendLine("INSERT INTO Persons VALUES");
+
+
+            foreach (var insert in tabela)
+            {
+                sbi.AppendLine("(");
+
+                AdicionarValor(sb, nome, insert.NomeUser);
+                AdicionarValor(sb, idade, insert.Idade);
+                AdicionarValor(sb, sexo, insert.Sexo);
+                // Adicione outras propriedades conforme necessário
+
+                sbi.AppendLine();
+            }
+
+            // Função para adicionar a vírgula entre os elementos (exceto o último)
+            void AdicionarValor(StringBuilder builder, bool adicionarSeparador, string valor)
+            {
+                if (adicionarSeparador)
+                {
+                    if (builder.Length > 0 && builder[builder.Length - 1] != '(')
+                    {
+                        builder.Append(", ");
+                    }
+                }
+
+                builder.Append($"\'{valor}\'");
+            }
+
+
+            sb.Append(sbi.ToString());
 
             return sb.ToString();
 
