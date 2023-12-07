@@ -9,7 +9,8 @@ namespace GeradorDeTabelasSQL.Repositorio
     {
         private readonly TableContext _tableContext;
 
-        public TabelaRepositorio(TableContext tableContext) { 
+        public TabelaRepositorio(TableContext tableContext)
+        {
             _tableContext = tableContext;
         }
 
@@ -28,6 +29,7 @@ namespace GeradorDeTabelasSQL.Repositorio
         {
             StringBuilder sb = new StringBuilder();
             Dictionary<string, string> map = new Dictionary<string, string>();
+
 
             bool nome = tabela[0].CamposSelecionados.Contains("Nome");
             bool idade = tabela[0].CamposSelecionados.Contains("Idade");
@@ -56,33 +58,57 @@ namespace GeradorDeTabelasSQL.Repositorio
 
 
             StringBuilder sbi = new StringBuilder();
-            sbi.AppendLine("INSERT INTO Persons VALUES");
+            sbi.AppendLine("\nINSERT INTO Persons VALUES");
 
+            //bool verificaUltimo = false;
+
+            bool primeiroElemento = true;
+            bool isString;
+            int id = 0;
 
             foreach (var insert in tabela)
             {
-                sbi.AppendLine("(");
+                if (insert != tabela[0])
+                {
+                    if (!primeiroElemento)
+                    {
+                        sbi.AppendLine(",");
+                    }
+                    else
+                    {
+                        primeiroElemento = false;
+                    }
 
-                AdicionarValor(sb, nome, insert.NomeUser);
-                AdicionarValor(sb, idade, insert.Idade);
-                AdicionarValor(sb, sexo, insert.Sexo);
-                // Adicione outras propriedades conforme necessário
+                    sbi.Append($"({++id}");
 
-                sbi.AppendLine();
+                    AdicionarValor(sbi, nome, insert.NomeUser, isString = true);
+                    AdicionarValor(sbi, idade, insert.Idade, isString = false);
+                    AdicionarValor(sbi, sexo, insert.Sexo, isString = true);
+                    AdicionarValor(sbi, cidade, insert.Cidade, isString = true);
+                    AdicionarValor(sbi, estado, insert.Estado, isString = true);
+                    AdicionarValor(sbi, rg, insert.Rg, isString = true);
+                    AdicionarValor(sbi, cpf, insert.Cpf, isString = true);
+
+                    sbi.AppendLine(")");
+                }
             }
 
-            // Função para adicionar a vírgula entre os elementos (exceto o último)
-            void AdicionarValor(StringBuilder builder, bool adicionarSeparador, string valor)
+            // Função para adicionar os valores
+            void AdicionarValor(StringBuilder builder, bool adicionarSeparador, string valor, bool isString)
             {
-                if (adicionarSeparador)
+                if (adicionarSeparador && builder[builder.Length - 1] != '(')
                 {
-                    if (builder.Length > 0 && builder[builder.Length - 1] != '(')
-                    {
-                        builder.Append(", ");
-                    }
+                    builder.Append(", ");
                 }
 
-                builder.Append($"\'{valor}\'");
+                if (isString)
+                {
+                    builder.Append($"\'{valor}\'");
+                }
+                else
+                {
+                    builder.Append($"{valor}");
+                }
             }
 
 
